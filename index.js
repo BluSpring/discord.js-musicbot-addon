@@ -932,9 +932,10 @@ module.exports = function(client, options) {
    * @param {integer} server - The server id.
    */
   musicbot.setLast = (server, last) => {
+    let queuz = musicbot.getQueue(server)
     if (musicbot.global) return null;
-    if (!last) musicbot.queue[server].last = null;
-    else if (last) musicbot.queue[server].last = last;
+    if (!last) queuz.last = null;
+    else if (last) queuz.last = last;
   };
 
   /**
@@ -944,14 +945,15 @@ module.exports = function(client, options) {
    * @returns {string} - The last played song.
    */
   musicbot.getLast = (server) => {
-    if (!musicbot.queue[server].last) {
-      musicbot.queue[server].last = {
+    let queuz = musicbot.getQueue(server)
+    if (!queuz.last) {
+      queuz.last = {
         looping: false,
         last: null
       };
     };
-    if (!musicbot.queue[server].last) return null;
-    else if (musicbot.queue[server].last) return musicbot.queue[server].last;
+    if (!queuz.last) return null;
+    else if (queuz.last) return queuz.last;
   };
 
   /**
